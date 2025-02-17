@@ -1,4 +1,4 @@
-for file in ../dist/esm/*.js; do
+for file in ./dist/esm/*.js; do
   echo "Updating $file contents..."
   sed -i '' "s/\.js'/\.mjs'/g" "$file"
   echo "Renaming $file to ${file%.js}.mjs..."
