@@ -1,5 +1,9 @@
 # node-pptx-parser
 
+[![npm downloads](https://img.shields.io/npm/dm/node-pptx-parser)](https://www.npmjs.com/package/node-pptx-parser)
+[![License](https://img.shields.io/npm/l/node-pptx-parser)](https://github.com/Mirza-Glitch/node-pptx-parser/blob/main/LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)](https://www.typescriptlang.org/)
+
 A Node.js library for parsing PowerPoint (PPTX) files and extracting text content. This library maintains text formatting, line breaks, and paragraph structures from the original presentation.
 
 ## Features
@@ -202,10 +206,6 @@ try {
 
 - unzipper: For extracting PPTX files
 - xml2js: For parsing XML content
-
-## License
-
-MIT
 
 ## Contributing
 
