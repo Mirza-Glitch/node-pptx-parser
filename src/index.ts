@@ -1,11 +1,11 @@
 import unzipper from "unzipper";
 import xml2js from "xml2js";
-import {
+import type {
   ParsedPresentation,
   SlideRelation,
   SlideTextContent,
   ParsedSlide,
-} from "./types";
+} from "./types.js";
 
 /**
  * PptxParser - A class for parsing PowerPoint (PPTX) files and extracting their content
@@ -50,10 +50,10 @@ export default class PptxParser {
 
       // Find main XML files in the PPTX structure
       const presentationXml = directory.files.find(
-        (d) => d.path === "ppt/presentation.xml"
+        (d) => d.path === "ppt/presentation.xml",
       );
       const slideRelationsXml = directory.files.find(
-        (d) => d.path === "ppt/_rels/presentation.xml.rels"
+        (d) => d.path === "ppt/_rels/presentation.xml.rels",
       );
 
       if (!presentationXml || !slideRelationsXml) {
@@ -65,9 +65,8 @@ export default class PptxParser {
       const relationshipsContent = await this.getFileContent(slideRelationsXml);
 
       const presentationData = await this.parseXmlContent(presentationContent);
-      const relationshipsData = await this.parseXmlContent(
-        relationshipsContent
-      );
+      const relationshipsData =
+        await this.parseXmlContent(relationshipsContent);
 
       // Get information about all slides
       const slideRelations = this.getSlideRelations(relationshipsData);
@@ -76,7 +75,7 @@ export default class PptxParser {
       const slides = await Promise.all(
         slideRelations.map(async (relation) => {
           const slideFile = directory.files.find(
-            (f) => f.path === `ppt/${relation.target}`
+            (f) => f.path === `ppt/${relation.target}`,
           );
           if (!slideFile) return null;
 
@@ -87,7 +86,7 @@ export default class PptxParser {
             xml: slideContent,
             parsed: await this.parseXmlContent(slideContent),
           };
-        })
+        }),
       );
 
       return {
