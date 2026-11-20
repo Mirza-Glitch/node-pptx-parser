@@ -20,9 +20,14 @@
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.mjs",
-      "types": "./dist/types/index.d.ts"
+      "import": {
+        "types": "./dist/esm/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
     }
   },
   "scripts": {
@@ -30,7 +35,8 @@
     "build:esm": "tsc -p tsconfig.esm.json && npm run rename:esm",
     "build": "npm run build:cjs && npm run build:esm",
     "clean": "rimraf dist",
-    "rename:esm": "bash ./scripts/fix-mjs.sh",
+    "rename:esm": "node ./scripts/fix-mjs.mjs",
+    "test:package": "npm run clean && npm run build && tsc -p tests/tsconfig.json && tsc -p tests/tsconfig.json --module node16 --moduleResolution node16 && node tests/runtime.mjs",
     "prepack": "npm run clean && npm run build"
   },
   "dependencies": {
